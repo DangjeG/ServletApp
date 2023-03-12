@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 
-@WebServlet("/")
+
+@WebServlet("/files/")
 public class MainServlet extends HttpServlet {
 
-    File file = new File("C://");
+    File file = File.listRoots()[0];
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

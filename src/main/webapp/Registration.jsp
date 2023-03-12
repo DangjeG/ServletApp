@@ -1,16 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Настя
-  Date: 12.03.2023
-  Time: 23:12
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>Register Page</title>
+</head>
+
+<h2>Hello, please register:</h2>
+<br><br>
+<form action="/registration" method=post>
+    <p><strong>Please Enter Your Username: </strong>
+        <input type="text" name="username" size="25">
+    <p><p><strong>Please Enter Your Password: </strong>
+    <input type="password" size="15" name="password">
+    <p><p>
+    <p><p><p><strong>Please Enter Your Email: </strong>
+    <input type="email" size="30" name="email">
+    <p><p><p>
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset">
+</form>
 </html>

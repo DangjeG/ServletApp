@@ -3,7 +3,7 @@
     <title>Register Page</title>
 </head>
 .
-<h2>Hello, please register:</h2>
+<h2>Hello, please log in:</h2>
 <br><br>
 <form action="/" method=post>
     <p><strong>Please Enter Your Username: </strong>
@@ -13,5 +13,8 @@
     <p><p>
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
+</form>
+<form  method="get" action="/registration" >
+    <input type="submit" value="Registration">
 </form>
 </html>

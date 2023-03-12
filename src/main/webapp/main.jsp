@@ -17,7 +17,7 @@
         <th>Дата</th>
         </thead>
         <tbody>
-        <form method="post" action="/">
+        <form method="post" action="/files">
             <button name="btn" type="submit" value=" ">...</button>
         </form>
         <colgroup span="4"></colgroup>
@@ -25,7 +25,7 @@
             <tr>
                 <colgroup span="4"></colgroup>
                 <td>
-                    <form method="post" action="/">
+                    <form method="post" action="/files">
                         <button name="btn" type="submit" value="${item.getAbsolutePath()}">${item.getName()}</button>
                     </form>
                 </td>
