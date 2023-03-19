@@ -3,8 +3,6 @@ package ServletPackage;
 import ServicePackage.UserProfile;
 import ServicePackage.UserService;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,21 +21,19 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+
         String username = req.getParameterValues("username")[0];
+        String password = req.getParameterValues("password")[0];
+
         UserProfile profile = UserService.getUserByLogin(username);
         if (profile == null) {
             resp.getWriter().write("Please register");
             return;
+        } else if (!profile.getPass().equals(password) ) {
+            resp.getWriter().write("Incorrect password");
+            return;
         }
-
         UserService.addSession(session.toString(), profile);
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/files");
-        requestDispatcher.forward(req, resp);
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService.deleteSession(req.getSession().toString());
+        resp.sendRedirect("/files");
     }
 }

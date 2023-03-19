@@ -8,6 +8,9 @@
 <body>
 <h1>${LocalDateTime.now().toString()}</h1>
 <h1>${name}</h1>
+<form method="delete" action="/logout">
+    <button type="submit">logout</button>
+</form>
 <hr/>
 <div>
     <table>
@@ -18,7 +21,7 @@
         </thead>
         <tbody>
         <form method="post" action="/files">
-            <button name="btn" type="submit" value=" ">...</button>
+            <button name="btn" type="submit" value=${name}${"\\parent"} >...</button>
         </form>
         <colgroup span="4"></colgroup>
         <c:forEach items="${files}" var="item">
@@ -37,7 +40,12 @@
                 </td>
                 <td>
                     <form method="get" action="/download">
-                        <button name="btn" type="submit" value="${item.getAbsolutePath()}">Скачать</button>
+                        <c:choose>
+                            <c:when test="${item.isDirectory()}"></c:when>
+                            <c:otherwise>
+                                <button name="btn" type="submit" value="${item.getAbsolutePath()}">Скачать</button>
+                            </c:otherwise>
+                        </c:choose>
                     </form>
                 </td>
             </tr>

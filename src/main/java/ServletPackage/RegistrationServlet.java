@@ -3,8 +3,6 @@ package ServletPackage;
 import ServicePackage.UserProfile;
 import ServicePackage.UserService;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +27,6 @@ public class RegistrationServlet extends HttpServlet {
         UserProfile profile = new UserProfile(username, password, email);
         UserService.addNewUser(profile);
         UserService.addSession(session.toString(), profile);
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/files");
-        requestDispatcher.forward(req, resp);
+        resp.sendRedirect("/files");
     }
 }

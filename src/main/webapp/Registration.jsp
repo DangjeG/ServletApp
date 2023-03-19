@@ -12,7 +12,7 @@
     <input type="password" size="15" name="password">
     <p><p>
     <p><p><p><strong>Please Enter Your Email: </strong>
-    <input type="email" size="30" name="email">
+    <input type="email" size="50" name="email">
     <p><p><p>
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
