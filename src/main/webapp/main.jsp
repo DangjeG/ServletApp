@@ -21,7 +21,7 @@
         </thead>
         <tbody>
         <form method="post" action="/files">
-            <button name="btn" type="submit" value=${name}${"\\parent"} >...</button>
+            <button name="btn" type="submit" value=${name}${"\\."} >...</button>
         </form>
         <colgroup span="4"></colgroup>
         <c:forEach items="${files}" var="item">

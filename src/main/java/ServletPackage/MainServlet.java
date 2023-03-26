@@ -2,7 +2,6 @@ package ServletPackage;
 
 import ServicePackage.UserProfile;
 import ServicePackage.UserService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +15,6 @@ import java.io.IOException;
 @WebServlet("/files")
 public class MainServlet extends HttpServlet {
 
-
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserProfile profile = UserService.getUserBySessionId(req.getSession().toString());
@@ -27,8 +23,8 @@ public class MainServlet extends HttpServlet {
             return;
         }
 
-        req.setAttribute("name", getUserDir(req).getAbsolutePath());
-        req.setAttribute("files", getUserDir(req).listFiles());
+        req.setAttribute("name", getUserDir(profile).getAbsolutePath());
+        req.setAttribute("files", getUserDir(profile).listFiles());
 
         req.getRequestDispatcher("main.jsp").forward(req, resp);
     }
@@ -43,14 +39,14 @@ public class MainServlet extends HttpServlet {
 
         File file = new File( req.getParameterValues("btn")[0]);
 
-        if(file.getName().equals("parent")) {
+        if(file.getName().equals(".")) {
 
             file = file.getParentFile();
             file = file.getParentFile();
         }
 
-        if(file.equals(new File(File.listRoots()[0] + "\\java\\users")))
-            file = getUserDir(req);
+        if(!file.getAbsolutePath().startsWith(getUserDir(profile).getAbsolutePath()))
+            file = getUserDir(profile);
         if(!file.isDirectory())
             file = file.getParentFile();
 
@@ -60,8 +56,7 @@ public class MainServlet extends HttpServlet {
         req.getRequestDispatcher("main.jsp").forward(req, resp);
     }
 
-    private File getUserDir(HttpServletRequest req){
-        UserProfile profile = UserService.getUserBySessionId(req.getSession().toString());
+    private File getUserDir(UserProfile profile){
         File file = new File(File.listRoots()[0] + "\\java\\users\\" + profile.getLogin());
         if(!file.exists())
             file.mkdirs();

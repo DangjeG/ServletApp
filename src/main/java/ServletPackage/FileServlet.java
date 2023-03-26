@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@WebServlet("/download/*")
+@WebServlet("/download")
 public class FileServlet extends HttpServlet {
 
 
@@ -26,9 +26,9 @@ public class FileServlet extends HttpServlet {
 
             byte[] outputByte = new byte[4096];
 
-            while(fileIn.read(outputByte, 0, 4096) != -1)
+            while(fileIn.read(outputByte) != -1)
             {
-                out.write(outputByte, 0, 4096);
+                out.write(outputByte);
             }
             fileIn.close();
             out.flush();
