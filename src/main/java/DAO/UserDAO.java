@@ -27,15 +27,15 @@ public class UserDAO {
     public void insertUser(UserProfile userProfile) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.execute("insert into users (login, password, email) values " +
-                "('" +
-                userProfile.getLogin() +
-                "', '" + userProfile.getPass() + "', '" + userProfile.getEmail() +"')");
+                "('" + userProfile.getLogin() +
+                "', '" + userProfile.getPass() +
+                "', '" + userProfile.getEmail() +"')");
         stmt.close();
     }
 
     public void createTable() throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("create table if not exists users (login varchar(256), password varchar(256), email varchar(256))");
+        stmt.execute("create table if not exists users (login varchar(256), password varchar(256), email varchar(256), PRIMARY KEY(login))");
         stmt.close();
     }
 

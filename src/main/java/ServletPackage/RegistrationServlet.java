@@ -24,9 +24,13 @@ public class RegistrationServlet extends HttpServlet {
         String username = req.getParameterValues("username")[0];
         String password = req.getParameterValues("password")[0];
         String email = req.getParameterValues("email")[0];
+        if(UserService.getUserByLogin(username) != null){
+            resp.getWriter().write("Account with this username already exists");
+            return;
+        }
         UserProfile profile = new UserProfile(username, password, email);
         UserService.addNewUser(profile);
-        UserService.addSession(session.toString(), profile);
+        UserService.addSession(session.getId(), profile);
         resp.sendRedirect("/files");
     }
 }

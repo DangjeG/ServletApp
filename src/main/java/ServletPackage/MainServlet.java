@@ -17,7 +17,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserProfile profile = UserService.getUserBySessionId(req.getSession().toString());
+        UserProfile profile = UserService.getUserBySessionId(req.getSession().getId());
         if (profile == null) {
             resp.sendRedirect("/");
             return;
@@ -31,7 +31,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserProfile profile = UserService.getUserBySessionId(req.getSession().toString());
+        UserProfile profile = UserService.getUserBySessionId(req.getSession().getId());
         if (profile == null) {
             resp.sendRedirect("/");
             return;

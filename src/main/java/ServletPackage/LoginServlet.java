@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
             resp.getWriter().write("Incorrect password");
             return;
         }
-        UserService.addSession(session.toString(), profile);
+        UserService.addSession(session.getId(), profile);
         resp.sendRedirect("/files");
     }
 }
