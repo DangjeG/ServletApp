@@ -1,47 +1,25 @@
 package DAO;
 
 import ServicePackage.UserProfile;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 public class UserDAO {
-    private Connection connection;
-    public UserDAO(Connection connection) {
-        this.connection = connection;
+    private Session session;
+    public UserDAO(Session session) {
+        this.session = session;
     }
-    public UserProfile get(String login) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute("select * from users where login= '" + login + "'");
-        ResultSet result = stmt.getResultSet();
-        result.next();
-        UserProfile userProfile = new UserProfile(result.getString(1),result.getString(2),result.getString(3));
-        result.close();
-        stmt.close();
-        return userProfile;
+    public UserProfile get(long id){
+        return (UserProfile) session.load(UserProfile.class, id);
     }
 
-
-    public void insertUser(UserProfile userProfile) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute("insert into users (login, password, email) values " +
-                "('" + userProfile.getLogin() +
-                "', '" + userProfile.getPass() +
-                "', '" + userProfile.getEmail() +"')");
-        stmt.close();
+    public UserProfile getBy(String variable, String value){
+        Criteria criteria = session.createCriteria(UserProfile.class);
+        return (UserProfile) criteria.add(Restrictions.eq(variable, value)).uniqueResult();
+    }
+    public void insertUser(UserProfile userProfile){
+        session.save(userProfile);
     }
 
-    public void createTable() throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute("create table if not exists users (login varchar(256), password varchar(256), email varchar(256), PRIMARY KEY(login))");
-        stmt.close();
-    }
-
-    public void dropTable() throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute("drop table users");
-        stmt.close();
-    }
 }
